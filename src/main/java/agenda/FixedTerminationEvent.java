@@ -26,11 +26,13 @@ public class FixedTerminationEvent extends RepetitiveEvent {
      * </UL>
      * @param terminationInclusive the date when this event ends
      */
+    
+    LocalDate terminationInclusive;
+    long numberOfOccurrences;
+    
     public FixedTerminationEvent(String title, LocalDateTime start, Duration duration, ChronoUnit frequency, LocalDate terminationInclusive) {
          super(title, start, duration, frequency);
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
-
+         this.terminationInclusive = terminationInclusive;
     }
 
     /**
@@ -49,8 +51,7 @@ public class FixedTerminationEvent extends RepetitiveEvent {
      */
     public FixedTerminationEvent(String title, LocalDateTime start, Duration duration, ChronoUnit frequency, long numberOfOccurrences) {
         super(title, start, duration, frequency);
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        this.numberOfOccurrences = numberOfOccurrences;
     }
 
     /**
@@ -58,13 +59,11 @@ public class FixedTerminationEvent extends RepetitiveEvent {
      * @return the termination date of this repetitive event
      */
     public LocalDate getTerminationDate() {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");   
+        return this.terminationInclusive;   
     }
 
     public long getNumberOfOccurrences() {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        return this.numberOfOccurrences;
     }
         
 }
