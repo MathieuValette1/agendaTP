@@ -9,7 +9,7 @@ import java.util.*;
 public class Agenda {
     
     public List <Event> myEvents = new ArrayList<>();
-    
+    public List <Event> eventsInDay = new ArrayList<>();
     /**
      * Adds an event to this agenda
      *
@@ -26,7 +26,11 @@ public class Agenda {
      * @return and iteraror to the events that occur on that day
      */
     public List<Event> eventsInDay(LocalDate day) {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        for ( Event e : myEvents ) {
+            if (e.isInDay(day)) {
+                eventsInDay.add(e) ;
+            }
+        }   
+        return eventsInDay ; 
     }
 }
