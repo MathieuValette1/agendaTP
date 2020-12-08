@@ -1,6 +1,7 @@
 package agenda;
 
 import java.time.*;
+import java.time.temporal.ChronoUnit;
 
 public class Event {
 
@@ -41,8 +42,21 @@ public class Event {
      */
     public boolean isInDay(LocalDate aDay) {
   
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        if (this.getStart().toLocalDate().equals(aDay)){
+            return true;
+        }
+        else{
+            // On calcule le nombre de jours entre le début et la fin et on test chaque jour
+            double durée = this.getDuration().toDays(); // La durée est en seconde donc on la passe en jour
+            long nbDeJours = ChronoUnit.DAYS.between(this.getStart().toLocalDate(), this.getStart().toLocalDate().plus((long)durée, ChronoUnit.DAYS));
+            for (long i = 0; i < nbDeJours; i++){
+                if (this.getStart().toLocalDate().plus(i, ChronoUnit.DAYS).equals(aDay)){
+                    return true;
+                    //// C'EST PAS LA BONNE ID2E BORDEL DE MERDE
+                }
+            }
+            return false;
+        } 
     }
    
     /**
@@ -50,6 +64,11 @@ public class Event {
      */
     public String getTitle() {
         return myTitle;
+    }
+    
+    @Override
+    public String toString(){
+        return this.getTitle();
     }
 
     /**
