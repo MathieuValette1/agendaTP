@@ -11,6 +11,8 @@ import java.time.temporal.ChronoUnit;
  */
 public class FixedTerminationEvent extends RepetitiveEvent {
 
+    LocalDate terminationInclusive;
+    long numberOfOccurrences;
     
     /**
      * Constructs a fixed terminationInclusive event ending at a given date
@@ -27,8 +29,6 @@ public class FixedTerminationEvent extends RepetitiveEvent {
      * @param terminationInclusive the date when this event ends
      */
     
-    LocalDate terminationInclusive;
-    long numberOfOccurrences;
     
     public FixedTerminationEvent(String title, LocalDateTime start, Duration duration, ChronoUnit frequency, LocalDate terminationInclusive) {
          super(title, start, duration, frequency);
@@ -59,11 +59,52 @@ public class FixedTerminationEvent extends RepetitiveEvent {
      * @return the termination date of this repetitive event
      */
     public LocalDate getTerminationDate() {
-        return this.terminationInclusive;   
+        
+        // L'évènement possède soit une date de fin, soit un nombre d'occurence
+        
+        if (this.terminationInclusive != null){
+            return this.terminationInclusive;
+        }
+        else {
+           ChronoUnit frequency = this.getFrequency();
+           if (frequency == ChronoUnit.DAYS){
+               this.terminationInclusive = this.getStart().plus(this.numberOfOccurrences, ChronoUnit.DAYS).toLocalDate();
+            }
+           else if (frequency == ChronoUnit.WEEKS){
+               this.terminationInclusive = this.getStart().plus(this.numberOfOccurrences, ChronoUnit.WEEKS).toLocalDate();
+            }
+           else{
+               this.terminationInclusive = this.getStart().plus(this.numberOfOccurrences, ChronoUnit.MONTHS).toLocalDate();              
+           }
+           return this.terminationInclusive;
+        }
     }
 
     public long getNumberOfOccurrences() {
-        return this.numberOfOccurrences;
+        
+        // L'évènement possède soit une date de fin, soit un nombre d'occurence
+        
+        if (this.terminationInclusive == null){
+            return this.numberOfOccurrences;
+        }
+        
+        else {
+           ChronoUnit frequency = this.getFrequency();
+           if (frequency == ChronoUnit.DAYS){
+               long nbDeJours = ChronoUnit.DAYS.between(this.terminationInclusive, this.getStart());
+               this.numberOfOccurrences = nbDeJours;
+            }
+           else if (frequency == ChronoUnit.WEEKS){
+               long nbDeSemaines = ChronoUnit.WEEKS.between(terminationInclusive, this.getStart());
+               this.numberOfOccurrences = nbDeSemaines;
+            }
+           else{
+               long nbDeMois = ChronoUnit.MONTHS.between(terminationInclusive,this.getStart());
+               this.numberOfOccurrences = nbDeMois;              
+           }
+           return this.numberOfOccurrences;
+        }
     }
+    
         
 }
