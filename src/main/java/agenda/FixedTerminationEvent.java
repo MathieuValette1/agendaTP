@@ -68,13 +68,13 @@ public class FixedTerminationEvent extends RepetitiveEvent {
         else {
            ChronoUnit frequency = this.getFrequency();
            if (frequency == ChronoUnit.DAYS){
-               this.terminationInclusive = this.getStart().plus(this.numberOfOccurrences, ChronoUnit.DAYS).toLocalDate();
+               this.terminationInclusive = this.getStart().plus(this.numberOfOccurrences - 1, ChronoUnit.DAYS).toLocalDate();
             }
            else if (frequency == ChronoUnit.WEEKS){
-               this.terminationInclusive = this.getStart().plus(this.numberOfOccurrences, ChronoUnit.WEEKS).toLocalDate();
+               this.terminationInclusive = this.getStart().plus(this.numberOfOccurrences - 1, ChronoUnit.WEEKS).toLocalDate();
             }
            else{
-               this.terminationInclusive = this.getStart().plus(this.numberOfOccurrences, ChronoUnit.MONTHS).toLocalDate();              
+               this.terminationInclusive = this.getStart().plus(this.numberOfOccurrences - 1, ChronoUnit.MONTHS).toLocalDate();              
            }
            return this.terminationInclusive;
         }
@@ -91,16 +91,16 @@ public class FixedTerminationEvent extends RepetitiveEvent {
         else {
            ChronoUnit frequency = this.getFrequency();
            if (frequency == ChronoUnit.DAYS){
-               long nbDeJours = ChronoUnit.DAYS.between(this.terminationInclusive, this.getStart());
-               this.numberOfOccurrences = nbDeJours;
+               long nbDeJours = ChronoUnit.DAYS.between(this.getStart().toLocalDate(), this.terminationInclusive);
+               this.numberOfOccurrences = nbDeJours + 1; // La date de fin est inclusive
             }
            else if (frequency == ChronoUnit.WEEKS){
-               long nbDeSemaines = ChronoUnit.WEEKS.between(terminationInclusive, this.getStart());
-               this.numberOfOccurrences = nbDeSemaines;
+               long nbDeSemaines = ChronoUnit.WEEKS.between(this.getStart().toLocalDate(), this.terminationInclusive);
+               this.numberOfOccurrences = nbDeSemaines + 1;
             }
            else{
-               long nbDeMois = ChronoUnit.MONTHS.between(terminationInclusive,this.getStart());
-               this.numberOfOccurrences = nbDeMois;              
+               long nbDeMois = ChronoUnit.MONTHS.between(this.getStart().toLocalDate(),this.terminationInclusive);
+               this.numberOfOccurrences = nbDeMois + 1;              
            }
            return this.numberOfOccurrences;
         }
