@@ -31,7 +31,7 @@ public class Event {
     public Event(String title, LocalDateTime start, Duration duration) {
         this.myTitle = title;
         this.myStart = start;
-        this.myDuration = duration;
+        this.myDuration = duration;/// En secondes
     }
 
     /**
@@ -41,22 +41,14 @@ public class Event {
      * @return true if the event occurs on that day, false otherwise
      */
     public boolean isInDay(LocalDate aDay) {
-  
-        if (this.getStart().toLocalDate().equals(aDay)){
+        
+        long durée = this.getDuration().toSeconds();
+        if (!aDay.isBefore(this.getStart().toLocalDate()) && !aDay.isAfter(this.getStart().plus(durée,  ChronoUnit.SECONDS).toLocalDate())){
             return true;
         }
         else{
-            // On calcule le nombre de jours entre le début et la fin et on test chaque jour
-            double durée = this.getDuration().toDays(); // La durée est en seconde donc on la passe en jour
-            long nbDeJours = ChronoUnit.DAYS.between(this.getStart().toLocalDate(), this.getStart().toLocalDate().plus((long)durée, ChronoUnit.DAYS));
-            for (long i = 0; i < nbDeJours; i++){
-                if (this.getStart().toLocalDate().plus(i, ChronoUnit.DAYS).equals(aDay)){
-                    return true;
-                    //// C'EST PAS LA BONNE ID2E BORDEL DE MERDE
-                }
-            }
             return false;
-        } 
+        }
     }
    
     /**
