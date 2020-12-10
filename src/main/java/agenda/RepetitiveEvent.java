@@ -24,6 +24,7 @@ public class RepetitiveEvent extends Event {
     
     ChronoUnit frequency;
     
+    
     public RepetitiveEvent(String title, LocalDateTime start, Duration duration, ChronoUnit frequency) {
         super(title, start, duration);
         this.frequency = frequency;
