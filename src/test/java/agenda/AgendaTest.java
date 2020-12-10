@@ -3,6 +3,7 @@ package agenda;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -27,6 +28,13 @@ public class AgendaTest {
     // A simple event
     // November 1st, 2020, 22:30, 120 minutes
     Event simple = new Event("Simple event", nov_1__2020_22_30, min_120);
+    
+    //A simple event 
+    //pas meme titre
+    Event simple2 = new Event ("Pas même titre", nov_1__2020_22_30, min_120);
+    
+    // A simple event
+    Event simple3 = new Event("Simple event", LocalDateTime.of(2020, 11, 1, 22, 40), min_120);
 
     // A Weekly Repetitive event ending at a given date
     RepetitiveEvent fixedTermination = new FixedTerminationEvent("Fixed termination weekly", nov_1__2020_22_30, min_120, ChronoUnit.WEEKS, jan_5_2021);
@@ -54,6 +62,25 @@ public class AgendaTest {
     }
 
     @Test
-    public void test
- 
+    public void testNotSameTitle() {
+        assertFalse (agenda.findByTitle("Simple event").contains(simple2));
+        
+    }
+    
+    @Test
+    public void testSameTitle () {
+        assertTrue(agenda.findByTitle("Simple event").contains(simple)); 
+    }
+    
+    @Test
+    public void testIsNotFree() {
+        agenda.addEvent(simple);
+        assertFalse(agenda.isFreeFor(simple3));
+    }
+    
+    @Test
+    public void testIsFree () {
+        agenda.addEvent(simple);
+        assertTrue(agenda.isFreeFor(simple2));
+    }
 }
