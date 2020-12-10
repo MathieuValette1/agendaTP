@@ -33,4 +33,24 @@ public class Agenda {
         }   
         return eventsInDay ; 
     }
+    
+     /**
+     * Trouver les événements de l'agenda en fonction de leur titre
+     * @param title le titre à rechercher
+     * @return les événements qui ont le même titre
+     */
+    public List<Event> findByTitle(String title) {
+        // TODO : implémenter cette méthode
+        throw new UnsupportedOperationException("Pas encore implémenté");        
+    }
+    
+    /**
+     * Déterminer s’il y a de la place dans l'agenda pour un événement
+     * @param e L'événement à tester (on se limitera aux événements simples)
+     * @return vrai s’il y a de la place dans l'agenda pour cet événement
+     */
+    public boolean isFreeFor(Event e) {
+        // TODO : implémenter cette méthode
+        throw new UnsupportedOperationException("Pas encore implémenté");        
+    }
 }
