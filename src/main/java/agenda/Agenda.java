@@ -10,7 +10,7 @@ import java.time.temporal.ChronoUnit;
 public class Agenda {
     
     public List <Event> myEvents = new ArrayList<>();
-    public List <Event> eventsInDay = new ArrayList<>();
+    public List <Event> eventsInDay = new ArrayList<>(); 
     /**
      * Adds an event to this agenda
      *
@@ -41,7 +41,14 @@ public class Agenda {
      * @return les événements qui ont le même titre
      */
     public List<Event> findByTitle(String title) {
- 
+        List <Event> eventsWithSameName = new ArrayList<>();
+        for (Event e : myEvents) {
+            if (title == e.getTitle()){
+                eventsWithSameName.add(e) ; 
+            }
+        }
+        return eventsWithSameName ; 
+    }
     
     /**
      * Déterminer s’il y a de la place dans l'agenda pour un événement

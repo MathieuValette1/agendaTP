@@ -36,9 +36,24 @@ public class RepetitiveEvent extends Event {
      * @param date the event will not occur at this date
      */
     public void addException(LocalDate date) {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
-    }
+        /* MARCHE PAS 
+        ChronoUnit f = this.getFrequency();
+        LocalDateTime d = date.atStartOfDay();
+        if (f == ChronoUnit.DAYS) { 
+            long nbOccurences = (ChronoUnit.DAYS.between(this.getStart(), d));
+            Event evenementAvant = new FixedTerminationEvent (this.getTitle(), this.getStart(),this.getDuration() ,this.getFrequency(), nbOccurences);
+            Event evenementApres = new RepetitiveEvent(this.getTitle(), (d.plusDays(1)) ,this.getDuration() ,this.getFrequency()); }
+        else if (f == ChronoUnit.MONTHS) { 
+            long nbOccurences = (ChronoUnit.MONTHS.between(this.getStart(), d)); 
+            Event evenementAvant = new FixedTerminationEvent (this.getTitle(), this.getStart(),this.getDuration() ,this.getFrequency(), nbOccurences);
+            Event evenementApres = new RepetitiveEvent(this.getTitle(), (d.plusMonths(1)) ,this.getDuration() ,this.getFrequency()); }
+        
+        else {
+            long nbOccurences = (ChronoUnit.WEEKS.between(this.getStart(), d)); 
+            Event evenementAvant = new FixedTerminationEvent (this.getTitle(), this.getStart(),this.getDuration() ,this.getFrequency(), nbOccurences);
+            Event evenementApres = new RepetitiveEvent(this.getTitle(), (d.plusWeeks(1)) ,this.getDuration() ,this.getFrequency()); }
+        */
+        } 
 
     /**
      *
