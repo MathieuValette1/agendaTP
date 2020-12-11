@@ -23,6 +23,8 @@ public class RepetitiveEvent extends Event {
      */
     
     ChronoUnit frequency;
+    boolean aLieu = true;
+    LocalDate exceptionDate;
     
     
     public RepetitiveEvent(String title, LocalDateTime start, Duration duration, ChronoUnit frequency) {
@@ -53,8 +55,35 @@ public class RepetitiveEvent extends Event {
             Event evenementAvant = new FixedTerminationEvent (this.getTitle(), this.getStart(),this.getDuration() ,this.getFrequency(), nbOccurences);
             Event evenementApres = new RepetitiveEvent(this.getTitle(), (d.plusWeeks(1)) ,this.getDuration() ,this.getFrequency()); }
         */
+        this.exceptionDate = date;
         } 
-
+    
+    public boolean testExceptionDate(LocalDate date){
+        if (date.equals(exceptionDate)){
+            aLieu = false;
+        }
+        else{
+            aLieu = true;
+        }
+        return aLieu;
+    }
+    
+    @Override
+    public boolean isInDay(LocalDate aDay) {
+        
+        this.aLieu = this.testExceptionDate(aDay);
+        
+        if (aLieu){
+            long durée = this.getDuration().getSeconds();
+            if (!aDay.isBefore(this.getStart().toLocalDate()) && !aDay.isAfter(this.getStart().plus(durée,  ChronoUnit.SECONDS).toLocalDate())){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        return false;
+    }
     /**
      *
      * @return the type of repetition

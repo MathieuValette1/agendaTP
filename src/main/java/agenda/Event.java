@@ -42,7 +42,8 @@ public class Event {
      */
     public boolean isInDay(LocalDate aDay) {
         
-        long durée = this.getDuration().toSeconds();
+        
+        long durée = this.getDuration().getSeconds();
         if (!aDay.isBefore(this.getStart().toLocalDate()) && !aDay.isAfter(this.getStart().plus(durée,  ChronoUnit.SECONDS).toLocalDate())){
             return true;
         }

@@ -57,9 +57,9 @@ public class Agenda {
      */
     public boolean isFreeFor(Event e) {
         boolean resultat = true;
-        long durée = e.getDuration().toSeconds();
+        long durée = e.getDuration().getSeconds();
         for (Event ev: myEvents){
-            if (e.getStart().isAfter(ev.getStart()) && e.getStart().plus(durée, ChronoUnit.SECONDS).isBefore(ev.getStart().plus(ev.getDuration().toSeconds(), ChronoUnit.SECONDS)))
+            if (e.getStart().isAfter(ev.getStart()) && e.getStart().isBefore(ev.getStart().plus(ev.getDuration().getSeconds(), ChronoUnit.SECONDS)))
                 resultat = false;
         }
         
