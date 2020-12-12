@@ -2,6 +2,7 @@ package agenda;
 
 import java.time.*;
 import java.time.temporal.ChronoUnit;
+import java.util.*;
 
 public class Event {
 
@@ -9,18 +10,20 @@ public class Event {
      * The myTitle of this event
      */
     private String myTitle;
-    
+
     /**
      * The starting time of the event
      */
     private LocalDateTime myStart;
 
     /**
-     * The durarion of the event 
+     * The durarion of the event
      */
     private Duration myDuration;
 
-
+    private LocalDateTime myEnd;
+    public List<LocalDateTime> joursDansEvent = new ArrayList<>();
+    public boolean isInDay ; 
     /**
      * Constructs an event
      *
@@ -41,26 +44,30 @@ public class Event {
      * @return true if the event occurs on that day, false otherwise
      */
     public boolean isInDay(LocalDate aDay) {
-        
-        
-        long durée = this.getDuration().getSeconds();
-        if (!aDay.isBefore(this.getStart().toLocalDate()) && !aDay.isAfter(this.getStart().plus(durée,  ChronoUnit.SECONDS).toLocalDate())){
-            return true;
+        int BetweenStartAndEnd = this.getEnd().getDayOfMonth() - myStart.getDayOfMonth();
+        joursDansEvent.add(myStart);
+        for (int i = 1; i <= BetweenStartAndEnd; i++) {
+            joursDansEvent.add(myStart.plus(i, ChronoUnit.DAYS));
+            for (LocalDateTime j : joursDansEvent) {
+                if (j.toLocalDate().equals(aDay)) {
+                   isInDay = true ; 
+                }
+            }
+
         }
-        else{
-            return false;
-        }
+        return isInDay ;
+
     }
-   
+
     /**
      * @return the myTitle
      */
     public String getTitle() {
         return myTitle;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return this.getTitle();
     }
 
@@ -71,7 +78,6 @@ public class Event {
         return myStart;
     }
 
-
     /**
      * @return the myDuration
      */
@@ -79,6 +85,9 @@ public class Event {
         return myDuration;
     }
 
-   
-    
+    public LocalDateTime getEnd() {
+        myEnd = this.getStart().plusDays(this.getDuration().toDays());
+        return myEnd;
+    }
+
 }

@@ -25,6 +25,8 @@ public class RepetitiveEvent extends Event {
     ChronoUnit frequency;
     boolean aLieu = true;
     LocalDate exceptionDate;
+    public List<LocalDate> myExceptions = new ArrayList<>();
+
     
     
     public RepetitiveEvent(String title, LocalDateTime start, Duration duration, ChronoUnit frequency) {
@@ -38,27 +40,9 @@ public class RepetitiveEvent extends Event {
      * @param date the event will not occur at this date
      */
     public void addException(LocalDate date) {
-        /* MARCHE PAS 
-        ChronoUnit f = this.getFrequency();
-        LocalDateTime d = date.atStartOfDay();
-        if (f == ChronoUnit.DAYS) { 
-            long nbOccurences = (ChronoUnit.DAYS.between(this.getStart(), d));
-            Event evenementAvant = new FixedTerminationEvent (this.getTitle(), this.getStart(),this.getDuration() ,this.getFrequency(), nbOccurences);
-            Event evenementApres = new RepetitiveEvent(this.getTitle(), (d.plusDays(1)) ,this.getDuration() ,this.getFrequency()); }
-        else if (f == ChronoUnit.MONTHS) { 
-            long nbOccurences = (ChronoUnit.MONTHS.between(this.getStart(), d)); 
-            Event evenementAvant = new FixedTerminationEvent (this.getTitle(), this.getStart(),this.getDuration() ,this.getFrequency(), nbOccurences);
-            Event evenementApres = new RepetitiveEvent(this.getTitle(), (d.plusMonths(1)) ,this.getDuration() ,this.getFrequency()); }
-        
-        else {
-            long nbOccurences = (ChronoUnit.WEEKS.between(this.getStart(), d)); 
-            Event evenementAvant = new FixedTerminationEvent (this.getTitle(), this.getStart(),this.getDuration() ,this.getFrequency(), nbOccurences);
-            Event evenementApres = new RepetitiveEvent(this.getTitle(), (d.plusWeeks(1)) ,this.getDuration() ,this.getFrequency()); }
-        */
-        this.exceptionDate = date;
-        } 
+        myExceptions.add(date) ; }
     
-    public boolean testExceptionDate(LocalDate date){
+  /*  public boolean testExceptionDate(LocalDate date){
         if (date.equals(exceptionDate)){
             aLieu = false;
         }
@@ -66,9 +50,9 @@ public class RepetitiveEvent extends Event {
             aLieu = true;
         }
         return aLieu;
-    }
+    } /*
     
-    @Override
+  /*  @Override
     public boolean isInDay(LocalDate aDay) {
         
         this.aLieu = this.testExceptionDate(aDay);
@@ -84,12 +68,15 @@ public class RepetitiveEvent extends Event {
         }
         return false;
     }
+    
+    */
     /**
      *
      * @return the type of repetition
      */
+   
     public ChronoUnit getFrequency() {
-        return this.frequency;    
-    }
+        return this.frequency; 
+    }   
 
 }
