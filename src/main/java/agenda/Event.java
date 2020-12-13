@@ -44,16 +44,23 @@ public class Event {
      * @return true if the event occurs on that day, false otherwise
      */
     public boolean isInDay(LocalDate aDay) {
-        int BetweenStartAndEnd = this.getEnd().getDayOfMonth() - myStart.getDayOfMonth();
-        joursDansEvent.add(myStart);
-        for (int i = 0; i <= BetweenStartAndEnd; i++) {
-            joursDansEvent.add(myStart.plus(i, ChronoUnit.DAYS));
+        if (aDay.isBefore(this.getStart().toLocalDate())){
+            return false;
+        }
+        ///int BetweenStartAndEnd = this.getEnd().getDayOfMonth() - myStart.getDayOfMonth();
+        long betweenStartAndEnd = ChronoUnit.DAYS.between(this.getStart(), this.getEnd());
+        //joursDansEvent.add(myStart);
+        for (int i = 0; i <= betweenStartAndEnd; i++) {
+            joursDansEvent.add(this.getStart().plus(i, ChronoUnit.DAYS));
             for (LocalDateTime j : joursDansEvent) {
                 if (j.toLocalDate().equals(aDay)) {
                    isInDay = true ; 
                 }
             }
 
+        }
+        if (aDay.equals(this.getEnd().toLocalDate())){
+            return true;
         }
         return isInDay ;
 
@@ -86,7 +93,8 @@ public class Event {
     }
 
     public LocalDateTime getEnd() {
-        myEnd = this.getStart().plusDays(this.getDuration().toDays());
+        long duree = this.getDuration().toSeconds();
+        myEnd = this.getStart().plus(duree, ChronoUnit.SECONDS);
         return myEnd;
     }
 

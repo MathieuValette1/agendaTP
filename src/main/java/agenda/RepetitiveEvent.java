@@ -23,7 +23,7 @@ public class RepetitiveEvent extends Event {
      */
     
     ChronoUnit frequency;
-    boolean aLieu = true;
+    ///boolean aLieu = true;
     LocalDate exceptionDate;
     public List<LocalDate> myExceptions = new ArrayList<>();
 
@@ -85,7 +85,11 @@ public class RepetitiveEvent extends Event {
         if (myExceptions.contains(aDay)) {
             return false ;
         }
+        if (aDay.isBefore(this.getStart().toLocalDate())){
+            return false;
+        }
         return true ; 
+        
     }  
     
 
