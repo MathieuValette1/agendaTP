@@ -46,7 +46,7 @@ public class Event {
     public boolean isInDay(LocalDate aDay) {
         int BetweenStartAndEnd = this.getEnd().getDayOfMonth() - myStart.getDayOfMonth();
         joursDansEvent.add(myStart);
-        for (int i = 1; i <= BetweenStartAndEnd; i++) {
+        for (int i = 0; i <= BetweenStartAndEnd; i++) {
             joursDansEvent.add(myStart.plus(i, ChronoUnit.DAYS));
             for (LocalDateTime j : joursDansEvent) {
                 if (j.toLocalDate().equals(aDay)) {

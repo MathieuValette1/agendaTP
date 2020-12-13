@@ -52,6 +52,7 @@ public class RepetitiveEvent extends Event {
         return aLieu;
     } /*
     
+   
   /*  @Override
     public boolean isInDay(LocalDate aDay) {
         
@@ -78,5 +79,14 @@ public class RepetitiveEvent extends Event {
     public ChronoUnit getFrequency() {
         return this.frequency; 
     }   
+    
+    @Override
+    public boolean isInDay (LocalDate aDay) {
+        if (myExceptions.contains(aDay)) {
+            return false ;
+        }
+        return true ; 
+    }  
+    
 
 }
